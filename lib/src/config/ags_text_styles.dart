@@ -1,15 +1,6 @@
 import 'package:agsant_package/src/consts/ags_colors.dart';
+import 'package:agsant_package/src/enums/ags_text_type.dart';
 import 'package:flutter/cupertino.dart';
-
-enum AgsTextType {
-  title,
-  titleSemiBold,
-  titleBold,
-  normal,
-  normalBold,
-  caption,
-  captionBold,
-}
 
 TextStyle getTextStyleBaseOnType(
   AgsTextType type,

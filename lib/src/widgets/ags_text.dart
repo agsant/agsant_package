@@ -1,4 +1,5 @@
 import 'package:agsant_package/src/config/ags_text_styles.dart';
+import 'package:agsant_package/src/enums/ags_text_type.dart';
 import 'package:flutter/cupertino.dart';
 
 class AgsText extends StatelessWidget {
