@@ -1,4 +1,5 @@
 import 'package:agsant_package/agsant_package.dart';
+import 'package:example/src/pages/ags_button_example_page.dart';
 import 'package:example/src/pages/ags_text_example_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,11 @@ class MainPage extends StatelessWidget {
             context: context,
             title: 'Ags Text',
             targetWidget: const AgsTextExamplePage(),
+          ),
+          _getItem(
+            context: context,
+            title: 'Ags Button',
+            targetWidget: const AgsButtonExamplePage(),
           )
         ],
       ),
