@@ -1,6 +1,5 @@
+import 'package:agsant_package/agsant_package.dart';
 import 'package:agsant_package/src/consts/ags_image_assets.dart';
-import 'package:agsant_package/src/enums/ags_image_type.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,6 +11,7 @@ class AgsImage extends StatelessWidget {
   final BoxFit fit;
   final String? placeholderImage;
   final double? cornerRadius;
+  final Widget? onError;
 
   const AgsImage(
     this.source, {
@@ -22,6 +22,7 @@ class AgsImage extends StatelessWidget {
     this.fit = BoxFit.contain,
     this.placeholderImage,
     this.cornerRadius,
+    this.onError,
   }) : super(key: key);
 
   @override
@@ -37,15 +38,22 @@ class AgsImage extends StatelessWidget {
   }
 
   Widget _getNetworkImage() {
-    Widget image = CachedNetworkImage(
-      imageUrl: source,
+    Widget image = NetworkImageWidget(
+      source,
       width: width,
       height: height,
       fit: fit,
-      errorWidget: (context, url, error) => SvgPicture.asset(
-        placeholderImage ?? AgsImageAssets.placeholderImage,
-      ),
+      onError: (context, object) {
+        Widget? errorWidget = onError;
+        if (errorWidget != null) {
+          return errorWidget;
+        }
+        return SvgPicture.asset(
+          placeholderImage ?? AgsImageAssets.placeholderImage,
+        );
+      },
     );
+
     if (cornerRadius != null) {
       return ClipRRect(
         borderRadius: BorderRadius.all(

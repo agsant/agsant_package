@@ -8,7 +8,7 @@ class AgsImageExamplePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AgsText('Example Ags Text'),
+        title: AgsText('Example Ags Image'),
       ),
       body: Container(
         padding: const EdgeInsets.all(16),

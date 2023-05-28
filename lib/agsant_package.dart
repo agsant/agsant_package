@@ -13,3 +13,4 @@ export 'package:agsant_package/src/enums/ags_image_type.dart';
 export 'package:agsant_package/src/widgets/ags_text.dart';
 export 'package:agsant_package/src/widgets/ags_button.dart';
 export 'package:agsant_package/src/widgets/ags_image.dart';
+export 'package:agsant_package/src/custom_base_widget/network_image/network_image_widget.dart';
