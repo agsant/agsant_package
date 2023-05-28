@@ -6,11 +6,9 @@ class AgsImageExamplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: AgsText('Example Ags Image'),
-      ),
-      body: Container(
+    return AgsPage(
+      title: 'Example Ags Image',
+      child: Container(
         padding: const EdgeInsets.all(16),
         child: GridView.count(
           crossAxisCount: 2,
