@@ -27,4 +27,6 @@ class AgsColor {
   static const Color yellow = Color(0xffF1F370);
 
   static const Color red = Color(0xffff0000);
+
+  static const Color orange = Color(0xFFFFA500);
 }

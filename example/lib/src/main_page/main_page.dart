@@ -2,6 +2,7 @@ import 'package:agsant_package/agsant_package.dart';
 import 'package:example/src/pages/ags_button_example_page.dart';
 import 'package:example/src/pages/ags_date_picker_example_page.dart';
 import 'package:example/src/pages/ags_image_example_page.dart';
+import 'package:example/src/pages/ags_text_area_page.dart';
 import 'package:example/src/pages/ags_text_example_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,11 @@ class MainPage extends StatelessWidget {
             context: context,
             title: 'Ags Date Picker',
             targetWidget: const AgsDatePickerExamplePage(),
+          ),
+          _getItem(
+            context: context,
+            title: 'Text Area',
+            targetWidget: const AgsTextAreaPage(),
           ),
         ],
       ),
