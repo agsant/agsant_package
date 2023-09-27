@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AgsButton extends StatelessWidget {
   final String title;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final AgsButtonType type;
   final Color? textColor;
   final Color? color;
