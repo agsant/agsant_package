@@ -10,6 +10,7 @@ class AgsPage extends StatelessWidget {
   final String? buttonTitle;
   final VoidCallback? onTap;
   final EdgeInsetsGeometry? buttonPadding;
+  final Color appBarColor;
 
   const AgsPage({
     super.key,
@@ -21,13 +22,14 @@ class AgsPage extends StatelessWidget {
     this.buttonTitle,
     this.onTap,
     this.buttonPadding,
+    this.appBarColor = AgsColor.blue90,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AgsColor.blue90,
+        backgroundColor: appBarColor,
         title: Text(
           title,
           style: TextStyle(
