@@ -12,7 +12,7 @@ class AgsText extends StatelessWidget {
   final bool underLine;
   final TextStyle? textStyle;
 
-  late final TextStyle _baseTextStyle;
+  late TextStyle _baseTextStyle;
 
   AgsText(
     this.text, {
