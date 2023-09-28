@@ -11,6 +11,9 @@ class AgsPage extends StatelessWidget {
   final VoidCallback? onTap;
   final EdgeInsetsGeometry? buttonPadding;
   final Color appBarColor;
+  final List<Widget>? actions;
+  final IconThemeData? iconTheme;
+  final IconThemeData? iconActionsTheme;
 
   const AgsPage({
     super.key,
@@ -23,12 +26,17 @@ class AgsPage extends StatelessWidget {
     this.onTap,
     this.buttonPadding,
     this.appBarColor = AgsColor.blue90,
+    this.actions,
+    this.iconActionsTheme,
+    this.iconTheme,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: iconTheme,
+        actionsIconTheme: iconActionsTheme,
         backgroundColor: appBarColor,
         title: Text(
           title,
@@ -38,11 +46,7 @@ class AgsPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        leading: Icon(
-          Icons.arrow_back,
-          color: titleColor,
-          size: 24,
-        ),
+        actions: actions,
       ),
       body: SafeArea(
         child: Padding(
