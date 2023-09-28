@@ -4,15 +4,19 @@ import 'package:agsant_package/agsant_package.dart';
 import 'package:flutter/material.dart';
 
 class AgsTextArea extends StatefulWidget {
+  final void Function(String)? onChanged;
   final int maxLength;
   final String text;
   final bool showCounter;
+  final Color? borderColor;
 
   const AgsTextArea({
     super.key,
     this.maxLength = 120,
     this.text = '',
     this.showCounter = true,
+    this.onChanged,
+    this.borderColor,
   });
 
   @override
@@ -42,7 +46,7 @@ class _AgsTextAreaState extends State<AgsTextArea> {
       children: [
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: AgsColor.black),
+            border: Border.all(color: widget.borderColor ?? AgsColor.black),
             borderRadius: BorderRadius.circular(4),
           ),
           child: ConstrainedBox(
@@ -63,6 +67,7 @@ class _AgsTextAreaState extends State<AgsTextArea> {
                     counter = text.length;
                   });
                 });
+                widget.onChanged?.call(text);
               },
               controller: _controller,
             ),

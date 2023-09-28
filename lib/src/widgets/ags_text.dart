@@ -12,7 +12,7 @@ class AgsText extends StatelessWidget {
   final bool underLine;
   final TextStyle? textStyle;
 
-  late TextStyle _baseTextStyle;
+  late final TextStyle _baseTextStyle;
 
   AgsText(
     this.text, {
@@ -25,10 +25,12 @@ class AgsText extends StatelessWidget {
     this.underLine = false,
     this.textStyle,
   }) : super(key: key) {
-    _baseTextStyle = getTextStyleBaseOnType(type, color, underLine);
+    TextStyle style = getTextStyleBaseOnType(type, color, underLine);
     TextStyle? customStyle = textStyle;
     if (customStyle != null) {
-      _baseTextStyle = _baseTextStyle.merge(customStyle);
+      _baseTextStyle = style.merge(customStyle);
+    } else {
+      _baseTextStyle = style;
     }
   }
 
