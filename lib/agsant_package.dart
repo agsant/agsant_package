@@ -16,3 +16,4 @@ export 'package:agsant_package/src/custom_base_widget/network_image/network_imag
 export 'package:agsant_package/src/widgets/ags_page.dart';
 export 'package:agsant_package/src/widgets/ags_date_picker.dart';
 export 'package:agsant_package/src/widgets/ags_text_area.dart';
+export 'package:agsant_package/src/widgets/ags_text_field.dart';
