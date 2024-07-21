@@ -9,6 +9,8 @@ class AgsTextField extends StatelessWidget {
   final int? maxLength;
   final bool readOnly;
   final List<TextInputFormatter>? inputFormatters;
+  final String? initialValue;
+  final FocusNode? focusNode;
 
   final Function(String)? onChanged;
   final VoidCallback? onTap;
@@ -23,6 +25,8 @@ class AgsTextField extends StatelessWidget {
     this.onTap,
     this.readOnly = false,
     this.inputFormatters,
+    this.initialValue,
+    this.focusNode,
   });
 
   @override
@@ -50,6 +54,8 @@ class AgsTextField extends StatelessWidget {
               isDense: true,
             ),
             inputFormatters: inputFormatters,
+            initialValue: initialValue,
+            focusNode: focusNode,
           ),
         ],
       ),

@@ -193,10 +193,10 @@ class _AGSDatePickerState extends State<AGSDatePicker> {
     _selectedYearIndex = _selectedDate.year - _minDate.year;
 
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => {
-        _scrollList(_dayScrollController, _selectedDayIndex),
-        _scrollList(_monthScrollController, _selectedMonthIndex),
-        _scrollList(_yearScrollController, _selectedYearIndex),
+      (_) {
+        _scrollList(_dayScrollController, _selectedDayIndex);
+        _scrollList(_monthScrollController, _selectedMonthIndex);
+        _scrollList(_yearScrollController, _selectedYearIndex);
       },
     );
   }
