@@ -59,6 +59,11 @@ class AgsButton extends StatelessWidget {
     switch (type) {
       case AgsButtonType.primary:
         return ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
+            ),
+          ),
           backgroundColor: MaterialStateProperty.all<Color>(
             color ?? AgsColor.blue60,
           ),
