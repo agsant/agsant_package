@@ -6,6 +6,10 @@ import 'package:agsant_package/src/dependency_injection/contracts/di_resolver.da
 import 'package:agsant_package/src/dependency_injection/implementations/di_registrant_impl.dart';
 import 'package:kiwi/kiwi.dart';
 
+export 'package:agsant_package/src/dependency_injection/contracts/di_assembly.dart';
+export 'package:agsant_package/src/dependency_injection/contracts/di_registrant.dart';
+export 'package:agsant_package/src/dependency_injection/contracts/di_resolver.dart';
+
 class DependencyInjection with DIRegistrant, DIResolver {
   static DependencyInjection shared = DependencyInjection();
 
