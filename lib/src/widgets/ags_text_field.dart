@@ -7,10 +7,12 @@ class AgsTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? inputType;
   final int? maxLength;
+  final int? maxLines;
   final bool readOnly;
   final List<TextInputFormatter>? inputFormatters;
   final String? initialValue;
   final FocusNode? focusNode;
+  final TextCapitalization textCapitalization;
 
   final Function(String)? onChanged;
   final VoidCallback? onTap;
@@ -21,12 +23,14 @@ class AgsTextField extends StatelessWidget {
     this.onChanged,
     this.controller,
     this.maxLength,
+    this.maxLines,
     this.inputType,
     this.onTap,
     this.readOnly = false,
     this.inputFormatters,
     this.initialValue,
     this.focusNode,
+    this.textCapitalization = TextCapitalization.words,
   });
 
   @override
@@ -56,6 +60,8 @@ class AgsTextField extends StatelessWidget {
             inputFormatters: inputFormatters,
             initialValue: initialValue,
             focusNode: focusNode,
+            textCapitalization: textCapitalization,
+            maxLines: maxLines,
           ),
         ],
       ),
