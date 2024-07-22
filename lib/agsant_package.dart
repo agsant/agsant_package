@@ -7,6 +7,7 @@ export 'package:agsant_package/src/utils/x_utils.dart';
 /// Configs
 export 'package:agsant_package/src/config/ags_text_styles.dart';
 export 'package:agsant_package/src/consts/ags_colors.dart';
+export 'package:agsant_package/src/dependency_injection/dependency_injection.dart';
 
 /// Widgets
 export 'package:agsant_package/src/widgets/ags_text.dart';
