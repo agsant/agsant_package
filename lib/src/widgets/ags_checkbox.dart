@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class AgsCheckbox extends StatelessWidget {
   final bool value;
+  final bool readOnly;
   final void Function(bool)? onChanged;
 
   const AgsCheckbox({
     super.key,
     this.value = false,
+    this.readOnly = false,
     this.onChanged,
   });
 
@@ -15,6 +17,9 @@ class AgsCheckbox extends StatelessWidget {
     return Checkbox(
       value: value,
       onChanged: (result) {
+        if (readOnly) {
+          return;
+        }
         onChanged?.call(result ?? false);
       },
     );
