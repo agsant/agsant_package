@@ -19,6 +19,7 @@ export 'package:agsant_package/src/widgets/ags_date_picker.dart';
 export 'package:agsant_package/src/widgets/ags_text_area.dart';
 export 'package:agsant_package/src/widgets/ags_text_field.dart';
 export 'package:agsant_package/src/widgets/ags_checkbox.dart';
+export 'package:agsant_package/src/widgets/ags_textfield_tiles/ags_textfield_checkbox.dart';
 
 /// third parties
 export 'package:intl/intl.dart';

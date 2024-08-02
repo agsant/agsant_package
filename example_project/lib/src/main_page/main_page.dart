@@ -5,6 +5,7 @@ import 'package:example_project/src/pages/ags_date_picker_example_page.dart';
 import 'package:example_project/src/pages/ags_image_example_page.dart';
 import 'package:example_project/src/pages/ags_text_area_page.dart';
 import 'package:example_project/src/pages/ags_text_example_page.dart';
+import 'package:example_project/src/pages/ags_textfield_with_checklist_example.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -52,6 +53,11 @@ class MainPage extends StatelessWidget {
             context: context,
             title: 'Checkbox',
             targetWidget: const AgsCheckboxPage(),
+          ),
+          _getItem(
+            context: context,
+            title: 'TextField Checkbox',
+            targetWidget: const AgsTextfieldWithChecklistExample(),
           ),
         ],
       ),
