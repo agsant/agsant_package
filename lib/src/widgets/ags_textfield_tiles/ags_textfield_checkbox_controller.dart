@@ -10,8 +10,15 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
   UnmodifiableListView<AgsTextFieldItemModel> get items =>
       UnmodifiableListView(_items);
 
-  void initialLoad({required bool isChecklistType}) {
-    _items.add(AgsTextFieldItemModel(text: ''));
+  void initialLoad({
+    required bool isChecklistType,
+    List<AgsTextFieldItemModel>? items,
+  }) {
+    if (items != null) {
+      _items.addAll(items);
+    } else {
+      _items.add(AgsTextFieldItemModel(text: ''));
+    }
     _isChecklistType = isChecklistType;
   }
 
@@ -27,6 +34,8 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
   }
 
   void updateItem({required int index, String? value, bool? checked}) {
+    if (index >= items.length) return;
+
     AgsTextFieldItemModel item = _items[index];
 
     _items[index] = item.copyWith(
@@ -38,7 +47,7 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
   }
 
   void remove(int index) {
-    if (index == items.length) return;
+    if (index >= items.length) return;
 
     _items.removeAt(index);
     notifyListeners();
