@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 
 class AgsTextFieldCheckbox extends StatefulWidget {
   final bool checklistType;
+  final List<AgsTextFieldItemModel>? items;
+
   final void Function(List<AgsTextFieldItemModel>)? onDataUpdated;
 
   const AgsTextFieldCheckbox({
     super.key,
     required this.checklistType,
     this.onDataUpdated,
+    this.items,
   });
 
   @override
