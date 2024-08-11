@@ -9,6 +9,7 @@ class AgsTextfieldItem extends StatefulWidget {
 
   final void Function(bool checked, String value)? onChanged;
   final VoidCallback? onEnter;
+  final VoidCallback? onRemove;
 
   const AgsTextfieldItem({
     super.key,
@@ -16,6 +17,7 @@ class AgsTextfieldItem extends StatefulWidget {
     required this.showCheckbox,
     this.onEnter,
     this.onChanged,
+    this.onRemove,
   });
 
   @override
@@ -24,16 +26,28 @@ class AgsTextfieldItem extends StatefulWidget {
 
 class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
   final TextEditingController _controller = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
+  late final FocusNode _focusNode;
 
   Timer? _debounce;
 
   bool _checked = false;
+  final int keyBackspace = 0x100000008;
+  final String keyBackspaceLabel = 'Backspace';
 
   @override
   void initState() {
     super.initState();
     _controller.addListener(_onSearchChanged);
+    _focusNode = FocusNode(
+      onKeyEvent: (node, event) {
+        if (_controller.text.isEmpty &&
+            (event.logicalKey.keyId == keyBackspace ||
+                event.logicalKey.keyLabel == keyBackspaceLabel)) {
+          widget.onRemove?.call();
+        }
+        return KeyEventResult.handled;
+      },
+    );
     _focusNode.requestFocus();
   }
 
