@@ -5,18 +5,23 @@ import 'package:flutter/material.dart';
 
 class AgsTextfieldCheckboxController extends ChangeNotifier {
   final List<AgsTextFieldItemModel> _items = [];
+  bool _isChecklistType = false;
 
   UnmodifiableListView<AgsTextFieldItemModel> get items =>
       UnmodifiableListView(_items);
 
-  void initialLoad() {
+  void initialLoad({required bool isChecklistType}) {
     _items.add(AgsTextFieldItemModel(text: ''));
+    _isChecklistType = isChecklistType;
   }
 
   void addItem({
     required int index,
   }) {
-    AgsTextFieldItemModel newItem = AgsTextFieldItemModel(text: '');
+    AgsTextFieldItemModel newItem = AgsTextFieldItemModel(
+      text: '',
+      isChecklistType: _isChecklistType,
+    );
     _items.insert(index + 1, newItem);
     notifyListeners();
   }
@@ -27,6 +32,7 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
     _items[index] = item.copyWith(
       text: value,
       checked: checked,
+      isChecklistType: _isChecklistType,
     );
     notifyListeners();
   }

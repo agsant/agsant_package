@@ -5,8 +5,13 @@ import 'package:flutter/material.dart';
 
 class AgsTextFieldCheckbox extends StatefulWidget {
   final bool checklistType;
+  final void Function(List<AgsTextFieldItemModel>)? onDataUpdated;
 
-  const AgsTextFieldCheckbox({super.key, required this.checklistType});
+  const AgsTextFieldCheckbox({
+    super.key,
+    required this.checklistType,
+    this.onDataUpdated,
+  });
 
   @override
   State<StatefulWidget> createState() => _AgsTextFieldCheckboxState();
@@ -19,7 +24,13 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
   @override
   void initState() {
     super.initState();
-    _controller.initialLoad();
+    _controller.initialLoad(isChecklistType: widget.checklistType);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -28,6 +39,8 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
       listenable: _controller,
       builder: (context, child) {
         List<AgsTextFieldItemModel> items = _controller.items;
+        widget.onDataUpdated?.call(items);
+
         return ListView.builder(
           itemCount: items.length,
           itemBuilder: (context, index) {
@@ -39,7 +52,11 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
                 _controller.addItem(index: index);
               },
               onChanged: (checked, value) {
-                _controller.updateItem(index: index);
+                _controller.updateItem(
+                  index: index,
+                  value: value,
+                  checked: checked,
+                );
               },
               onRemove: () {
                 if (items.length == 1) {
