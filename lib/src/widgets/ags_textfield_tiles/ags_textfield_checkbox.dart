@@ -27,7 +27,10 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
   @override
   void initState() {
     super.initState();
-    _controller.initialLoad(isChecklistType: widget.checklistType);
+    _controller.initialLoad(
+      isChecklistType: widget.checklistType,
+      paramItems: widget.items,
+    );
   }
 
   @override
@@ -49,6 +52,7 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
           itemBuilder: (context, index) {
             return AgsTextfieldItem(
               key: Key(index.toString()),
+              param: items[index],
               isChecklistType: widget.checklistType,
               showCheckbox: widget.checklistType,
               onEnter: () {

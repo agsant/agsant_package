@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class AgsTextfieldItem extends StatefulWidget {
   final bool isChecklistType;
   final bool showCheckbox;
+  final AgsTextFieldItemModel? param;
 
   final void Function(bool checked, String value)? onChanged;
   final VoidCallback? onEnter;
@@ -15,6 +16,7 @@ class AgsTextfieldItem extends StatefulWidget {
     super.key,
     required this.isChecklistType,
     required this.showCheckbox,
+    this.param,
     this.onEnter,
     this.onChanged,
     this.onRemove,
@@ -37,6 +39,11 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
   @override
   void initState() {
     super.initState();
+    if (widget.param != null) {
+      _controller.text = widget.param?.text ?? '';
+      _checked = widget.param?.checked ?? false;
+    }
+
     _controller.addListener(_onTextChanged);
     _focusNode = FocusNode(
       onKeyEvent: (node, event) {
