@@ -20,6 +20,7 @@ export 'package:agsant_package/src/widgets/ags_text_area.dart';
 export 'package:agsant_package/src/widgets/ags_text_field.dart';
 export 'package:agsant_package/src/widgets/ags_checkbox.dart';
 export 'package:agsant_package/src/widgets/ags_textfield_tiles/ags_textfield_checkbox.dart';
+export 'package:agsant_package/src/widgets/ags_textfield_tiles/ags_textfield_item_model.dart';
 
 /// third parties
 export 'package:intl/intl.dart';

@@ -37,7 +37,7 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
   @override
   void initState() {
     super.initState();
-    _controller.addListener(_onSearchChanged);
+    _controller.addListener(_onTextChanged);
     _focusNode = FocusNode(
       onKeyEvent: (node, event) {
         if (_controller.text.isEmpty &&
@@ -53,39 +53,48 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      focusNode: _focusNode,
-      minLines: 1,
-      maxLines: 200,
-      controller: _controller,
-      decoration: (widget.isChecklistType && widget.showCheckbox)
-          ? InputDecoration(
-              prefixIcon: AgsCheckbox(
-                value: _checked,
-                onChanged: (value) {
-                  setState(() {
-                    _checked = value;
-                  });
-                  widget.onChanged?.call(_checked, _controller.text);
-                },
-              ),
-            )
-          : const InputDecoration(),
-      onChanged: (value) {
-        if (widget.isChecklistType) {
-          if (value.contains('\n')) {
-            String text = value.replaceAll('\n', '');
-            _controller.text = text;
-            widget.onEnter?.call();
-          }
-        }
-      },
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        if (widget.isChecklistType && widget.showCheckbox)
+          AgsCheckbox(
+            value: _checked,
+            onChanged: (value) {
+              setState(() {
+                _checked = value;
+              });
+              widget.onChanged?.call(_checked, _controller.text);
+            },
+          ),
+        Expanded(
+          child: TextField(
+            focusNode: _focusNode,
+            minLines: 1,
+            maxLines: 200,
+            controller: _controller,
+            style: const TextStyle(height: 1),
+            decoration: const InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.only(bottom: 8),
+            ),
+            onChanged: (value) {
+              if (widget.isChecklistType) {
+                if (value.contains('\n')) {
+                  String text = value.replaceAll('\n', '');
+                  _controller.text = text;
+                  widget.onEnter?.call();
+                }
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 
-  _onSearchChanged() {
-    Timer? _timer = _debounce;
-    if (_timer != null && _timer.isActive) {
+  _onTextChanged() {
+    Timer? timer = _debounce;
+    if (timer != null && timer.isActive) {
       _debounce?.cancel();
     }
 
