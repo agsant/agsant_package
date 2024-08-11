@@ -12,10 +12,11 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
 
   void initialLoad({
     required bool isChecklistType,
-    List<AgsTextFieldItemModel>? items,
+    List<AgsTextFieldItemModel>? paramItems,
   }) {
-    if (items != null) {
-      _items.addAll(items);
+    if (paramItems != null) {
+      _items.addAll(paramItems);
+      notifyListeners();
     } else {
       _items.add(AgsTextFieldItemModel(text: ''));
     }
