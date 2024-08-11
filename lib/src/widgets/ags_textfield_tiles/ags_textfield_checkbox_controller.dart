@@ -32,6 +32,8 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
   }
 
   void remove(int index) {
+    if (index == items.length) return;
+
     _items.removeAt(index);
     notifyListeners();
   }

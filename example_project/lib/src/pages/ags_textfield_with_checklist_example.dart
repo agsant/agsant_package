@@ -25,7 +25,7 @@ class _AgsTextfieldWithChecklistExampleState
           children: [
             Expanded(
               child: AgsTextFieldCheckbox(
-                checklistType: checked,
+                checklistType: true,
               ),
             ),
             Container(

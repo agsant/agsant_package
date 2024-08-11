@@ -34,12 +34,18 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
             return AgsTextfieldItem(
               key: Key(index.toString()),
               isChecklistType: widget.checklistType,
-              showCheckbox: items[index].isChecklistType,
+              showCheckbox: widget.checklistType,
               onEnter: () {
                 _controller.addItem(index: index);
               },
               onChanged: (checked, value) {
                 _controller.updateItem(index: index);
+              },
+              onRemove: () {
+                if (items.length == 1) {
+                  return;
+                }
+                _controller.remove(index);
               },
             );
           },
