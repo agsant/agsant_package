@@ -54,13 +54,20 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
                 event.logicalKey.keyLabel == keyBackspaceLabel)) {
           widget.onRemove?.call();
         }
-        return KeyEventResult.handled;
+        return KeyEventResult.ignored;
       },
     );
 
     if (widget.requestFocus) {
       _focusNode.requestFocus();
     }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focusNode.dispose();
+    super.dispose();
   }
 
   @override
