@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AgsCheckbox extends StatelessWidget {
   final bool value;
   final bool readOnly;
+  final double size;
   final void Function(bool)? onChanged;
   final VoidCallback? onTap;
 
@@ -10,6 +11,7 @@ class AgsCheckbox extends StatelessWidget {
     super.key,
     this.value = false,
     this.readOnly = false,
+    this.size = 24,
     this.onChanged,
     this.onTap,
   });
@@ -18,14 +20,19 @@ class AgsCheckbox extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Checkbox(
-        value: value,
-        onChanged: (result) {
-          if (readOnly) {
-            return;
-          }
-          onChanged?.call(result ?? false);
-        },
+      child: SizedBox(
+        height: size,
+        width: size,
+        child: Checkbox(
+          value: value,
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          onChanged: (result) {
+            if (readOnly) {
+              return;
+            }
+            onChanged?.call(result ?? false);
+          },
+        ),
       ),
     );
   }

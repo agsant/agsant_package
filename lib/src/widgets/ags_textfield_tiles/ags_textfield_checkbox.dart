@@ -5,12 +5,19 @@ import 'package:flutter/material.dart';
 
 class AgsTextFieldCheckbox extends StatefulWidget {
   final bool checklistType;
+  final List<AgsTextFieldItemModel>? items;
+  final EdgeInsetsGeometry? padding;
+  final bool requestFocus;
+
   final void Function(List<AgsTextFieldItemModel>)? onDataUpdated;
 
   const AgsTextFieldCheckbox({
     super.key,
     required this.checklistType,
+    this.requestFocus = true,
     this.onDataUpdated,
+    this.padding,
+    this.items,
   });
 
   @override
@@ -24,7 +31,10 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
   @override
   void initState() {
     super.initState();
-    _controller.initialLoad(isChecklistType: widget.checklistType);
+    _controller.initialLoad(
+      isChecklistType: widget.checklistType,
+      paramItems: widget.items,
+    );
   }
 
   @override
@@ -44,26 +54,32 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
         return ListView.builder(
           itemCount: items.length,
           itemBuilder: (context, index) {
-            return AgsTextfieldItem(
-              key: Key(index.toString()),
-              isChecklistType: widget.checklistType,
-              showCheckbox: widget.checklistType,
-              onEnter: () {
-                _controller.addItem(index: index);
-              },
-              onChanged: (checked, value) {
-                _controller.updateItem(
-                  index: index,
-                  value: value,
-                  checked: checked,
-                );
-              },
-              onRemove: () {
-                if (items.length == 1) {
-                  return;
-                }
-                _controller.remove(index);
-              },
+            return Padding(
+              padding: widget.padding ??
+                  const EdgeInsets.only(bottom: 12.0, left: 10.0),
+              child: AgsTextfieldItem(
+                key: Key(index.toString()),
+                requestFocus: widget.requestFocus,
+                param: items[index],
+                isChecklistType: widget.checklistType,
+                showCheckbox: widget.checklistType,
+                onEnter: () {
+                  _controller.addItem(index: index);
+                },
+                onChanged: (checked, value) {
+                  _controller.updateItem(
+                    index: index,
+                    value: value,
+                    checked: checked,
+                  );
+                },
+                onRemove: () {
+                  if (items.length == 1) {
+                    return;
+                  }
+                  _controller.remove(index);
+                },
+              ),
             );
           },
         );

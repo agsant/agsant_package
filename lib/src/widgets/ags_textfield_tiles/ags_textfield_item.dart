@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class AgsTextfieldItem extends StatefulWidget {
   final bool isChecklistType;
   final bool showCheckbox;
+  final bool requestFocus;
+  final AgsTextFieldItemModel? param;
 
   final void Function(bool checked, String value)? onChanged;
   final VoidCallback? onEnter;
@@ -15,6 +17,8 @@ class AgsTextfieldItem extends StatefulWidget {
     super.key,
     required this.isChecklistType,
     required this.showCheckbox,
+    required this.requestFocus,
+    this.param,
     this.onEnter,
     this.onChanged,
     this.onRemove,
@@ -37,6 +41,11 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
   @override
   void initState() {
     super.initState();
+    if (widget.param != null) {
+      _controller.text = widget.param?.text ?? '';
+      _checked = widget.param?.checked ?? false;
+    }
+
     _controller.addListener(_onTextChanged);
     _focusNode = FocusNode(
       onKeyEvent: (node, event) {
@@ -48,7 +57,10 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
         return KeyEventResult.ignored;
       },
     );
-    _focusNode.requestFocus();
+
+    if (widget.requestFocus) {
+      _focusNode.requestFocus();
+    }
   }
 
   @override
@@ -64,14 +76,17 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if (widget.isChecklistType && widget.showCheckbox)
-          AgsCheckbox(
-            value: _checked,
-            onChanged: (value) {
-              setState(() {
-                _checked = value;
-              });
-              widget.onChanged?.call(_checked, _controller.text);
-            },
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: AgsCheckbox(
+              value: _checked,
+              onChanged: (value) {
+                setState(() {
+                  _checked = value;
+                });
+                widget.onChanged?.call(_checked, _controller.text);
+              },
+            ),
           ),
         Expanded(
           child: TextField(
