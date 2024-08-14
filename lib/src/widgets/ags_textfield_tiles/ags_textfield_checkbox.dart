@@ -27,6 +27,7 @@ class AgsTextFieldCheckbox extends StatefulWidget {
 class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
   final AgsTextfieldCheckboxController _controller =
       AgsTextfieldCheckboxController();
+  bool _requestFocus = true;
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
       isChecklistType: widget.checklistType,
       paramItems: widget.items,
     );
+    _requestFocus = widget.requestFocus;
   }
 
   @override
@@ -59,14 +61,16 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
                   const EdgeInsets.only(bottom: 12.0, left: 10.0),
               child: AgsTextfieldItem(
                 key: Key(index.toString()),
-                requestFocus: widget.requestFocus,
+                requestFocus: _requestFocus,
                 param: items[index],
                 isChecklistType: widget.checklistType,
                 showCheckbox: widget.checklistType,
                 onEnter: () {
+                  _requestFocus = true;
                   _controller.addItem(index: index);
                 },
                 onChanged: (checked, value) {
+                  _requestFocus = true;
                   _controller.updateItem(
                     index: index,
                     value: value,
@@ -74,6 +78,7 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
                   );
                 },
                 onRemove: () {
+                  _requestFocus = true;
                   if (items.length == 1) {
                     return;
                   }
