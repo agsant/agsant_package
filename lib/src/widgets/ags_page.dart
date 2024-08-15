@@ -14,6 +14,8 @@ class AgsPage extends StatelessWidget {
   final List<Widget>? actions;
   final IconThemeData? iconTheme;
   final IconThemeData? iconActionsTheme;
+  final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? fabLocation;
 
   const AgsPage({
     super.key,
@@ -29,11 +31,15 @@ class AgsPage extends StatelessWidget {
     this.actions,
     this.iconActionsTheme,
     this.iconTheme,
+    this.floatingActionButton,
+    this.fabLocation,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: floatingActionButton,
+      floatingActionButtonLocation: fabLocation,
       appBar: AppBar(
         iconTheme: iconTheme,
         actionsIconTheme: iconActionsTheme,
