@@ -11,7 +11,7 @@ class AgsButton extends StatelessWidget {
   final double borderRadius;
 
   const AgsButton({
-    Key? key,
+    super.key,
     required this.title,
     required this.onTap,
     this.type = AgsButtonType.primary,
@@ -19,7 +19,7 @@ class AgsButton extends StatelessWidget {
     this.textColor,
     this.textType,
     this.borderRadius = 12,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class AgsButton extends StatelessWidget {
       child = AgsText(
         title,
         type: textType ?? AgsTextType.title,
-        color: color ?? AgsColor.blue60,
+        color: color,
         textAlign: TextAlign.center,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
@@ -59,27 +59,27 @@ class AgsButton extends StatelessWidget {
     switch (type) {
       case AgsButtonType.primary:
         return ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
             ),
           ),
-          backgroundColor: MaterialStateProperty.all<Color>(
+          backgroundColor: WidgetStateProperty.all<Color>(
             color ?? AgsColor.blue60,
           ),
-          foregroundColor: MaterialStateProperty.all<Color>(
+          foregroundColor: WidgetStateProperty.all<Color>(
             color ?? AgsColor.blue60,
           ),
         );
       case AgsButtonType.primaryDanger:
         return ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
+          backgroundColor: WidgetStateProperty.all<Color>(
             AgsColor.red,
           ),
         );
       case AgsButtonType.outline:
         return ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
               side: BorderSide(
@@ -91,13 +91,13 @@ class AgsButton extends StatelessWidget {
         );
       case AgsButtonType.roundedButton:
         return ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
+          backgroundColor: WidgetStateProperty.all<Color>(
             color ?? AgsColor.blue60,
           ),
-          foregroundColor: MaterialStateProperty.all<Color>(
+          foregroundColor: WidgetStateProperty.all<Color>(
             color ?? AgsColor.white,
           ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
             ),

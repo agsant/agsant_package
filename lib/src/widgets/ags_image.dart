@@ -15,7 +15,7 @@ class AgsImage extends StatelessWidget {
 
   const AgsImage(
     this.source, {
-    Key? key,
+    super.key,
     required this.type,
     this.height,
     this.width,
@@ -23,7 +23,7 @@ class AgsImage extends StatelessWidget {
     this.placeholderImage,
     this.cornerRadius,
     this.onError,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
