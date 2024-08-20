@@ -121,7 +121,7 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
       _debounce?.cancel();
     }
 
-    _debounce = Timer(const Duration(milliseconds: 1000), () {
+    _debounce = Timer(const Duration(milliseconds: 500), () {
       widget.onChanged?.call(_checked, _controller.text);
     });
   }
