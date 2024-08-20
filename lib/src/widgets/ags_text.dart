@@ -16,7 +16,7 @@ class AgsText extends StatelessWidget {
 
   AgsText(
     this.text, {
-    Key? key,
+    super.key,
     this.type = AgsTextType.normal,
     this.color,
     this.textAlign,
@@ -24,7 +24,7 @@ class AgsText extends StatelessWidget {
     this.overflow,
     this.underLine = false,
     this.textStyle,
-  }) : super(key: key) {
+  }) {
     TextStyle style = getTextStyleBaseOnType(type, color, underLine);
     TextStyle? customStyle = textStyle;
     if (customStyle != null) {

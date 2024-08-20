@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class AgsPage extends StatelessWidget {
   final Widget child;
   final String title;
-  final Color titleColor;
+  final Color? titleColor;
   final EdgeInsetsGeometry? padding;
   final Widget? button;
   final String? buttonTitle;
   final VoidCallback? onTap;
   final EdgeInsetsGeometry? buttonPadding;
-  final Color appBarColor;
+  final Color? appBarColor;
   final List<Widget>? actions;
   final IconThemeData? iconTheme;
   final IconThemeData? iconActionsTheme;
@@ -21,13 +21,13 @@ class AgsPage extends StatelessWidget {
     super.key,
     required this.title,
     required this.child,
-    this.titleColor = AgsColor.white,
+    this.titleColor,
     this.padding,
     this.button,
     this.buttonTitle,
     this.onTap,
     this.buttonPadding,
-    this.appBarColor = AgsColor.blue90,
+    this.appBarColor,
     this.actions,
     this.iconActionsTheme,
     this.iconTheme,
