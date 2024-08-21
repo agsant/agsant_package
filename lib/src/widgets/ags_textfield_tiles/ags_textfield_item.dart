@@ -93,7 +93,7 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
             focusNode: _focusNode,
             minLines: 1,
             maxLines: 200,
-            textCapitalization: TextCapitalization.words,
+            textCapitalization: TextCapitalization.sentences,
             controller: _controller,
             style: const TextStyle(height: 1),
             decoration: const InputDecoration(
