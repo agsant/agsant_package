@@ -2,11 +2,15 @@ class AgsTextFieldItemModel {
   final String text;
   final bool isChecklistType;
   final bool checked;
+  final String? key;
+  final bool hasFocus;
 
   AgsTextFieldItemModel({
     required this.text,
     this.checked = false,
     this.isChecklistType = false,
+    this.key,
+    this.hasFocus = false,
   });
 
   AgsTextFieldItemModel copyWith({
@@ -18,6 +22,7 @@ class AgsTextFieldItemModel {
       text: text ?? this.text,
       checked: checked ?? this.checked,
       isChecklistType: isChecklistType ?? this.isChecklistType,
+      key: key,
     );
   }
 }

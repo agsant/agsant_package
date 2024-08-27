@@ -28,6 +28,7 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
   final AgsTextfieldCheckboxController _controller =
       AgsTextfieldCheckboxController();
   bool _requestFocus = true;
+  int _focusedIndex = 0;
 
   @override
   void initState() {
@@ -37,6 +38,7 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
       paramItems: widget.items,
     );
     _requestFocus = widget.requestFocus;
+    _focusedIndex = (widget.items?.length ?? 1) - 1;
   }
 
   @override
@@ -60,13 +62,14 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
               padding: widget.padding ??
                   const EdgeInsets.only(bottom: 12.0, left: 10.0),
               child: AgsTextfieldItem(
-                key: Key(index.toString()),
-                requestFocus: _requestFocus,
+                key: Key(items[index].key ?? index.toString()),
+                requestFocus: _requestFocus && _focusedIndex == index,
                 param: items[index],
                 isChecklistType: widget.checklistType,
                 showCheckbox: widget.checklistType,
                 onEnter: () {
                   _requestFocus = true;
+                  _focusedIndex++;
                   _controller.addItem(index: index);
                 },
                 onChanged: (checked, value) {
@@ -82,7 +85,11 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
                   if (items.length == 1) {
                     return;
                   }
+                  _focusedIndex = index - 1;
                   _controller.remove(index);
+                },
+                onGetFocus: () {
+                  _focusedIndex = index;
                 },
               ),
             );
