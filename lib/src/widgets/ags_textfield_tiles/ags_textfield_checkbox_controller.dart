@@ -18,7 +18,10 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
       _items.addAll(paramItems);
       notifyListeners();
     } else {
-      _items.add(AgsTextFieldItemModel(text: ''));
+      _items.add(AgsTextFieldItemModel(
+        text: '',
+        key: DateTime.timestamp().toString(),
+      ));
     }
     _isChecklistType = isChecklistType;
   }
@@ -29,6 +32,7 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
     AgsTextFieldItemModel newItem = AgsTextFieldItemModel(
       text: '',
       isChecklistType: _isChecklistType,
+      key: DateTime.timestamp().toString(),
     );
     _items.insert(index + 1, newItem);
     notifyListeners();

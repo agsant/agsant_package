@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:agsant_package/agsant_package.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AgsTextfieldItem extends StatefulWidget {
   final bool isChecklistType;
@@ -12,6 +13,7 @@ class AgsTextfieldItem extends StatefulWidget {
   final void Function(bool checked, String value)? onChanged;
   final VoidCallback? onEnter;
   final VoidCallback? onRemove;
+  final VoidCallback? onGetFocus;
 
   const AgsTextfieldItem({
     super.key,
@@ -22,6 +24,7 @@ class AgsTextfieldItem extends StatefulWidget {
     this.onEnter,
     this.onChanged,
     this.onRemove,
+    this.onGetFocus,
   });
 
   @override
@@ -50,6 +53,7 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
     _focusNode = FocusNode(
       onKeyEvent: (node, event) {
         if (_controller.text.isEmpty &&
+            event is KeyDownEvent &&
             (event.logicalKey.keyId == keyBackspace ||
                 event.logicalKey.keyLabel == keyBackspaceLabel)) {
           widget.onRemove?.call();
@@ -57,6 +61,11 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
         return KeyEventResult.ignored;
       },
     );
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        widget.onGetFocus?.call();
+      }
+    });
 
     if (widget.requestFocus || _focusNode.hasFocus) {
       _focusNode.requestFocus();
