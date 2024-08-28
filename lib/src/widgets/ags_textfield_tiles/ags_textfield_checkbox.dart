@@ -67,8 +67,6 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
                     key: Key(items[index].key ?? index.toString()),
                     requestFocus: _requestFocus && _focusedIndex == index,
                     param: items[index],
-                    isChecklistType: widget.checklistType,
-                    showCheckbox: widget.checklistType,
                     onEnter: () {
                       _requestFocus = true;
                       _focusedIndex++;
@@ -84,6 +82,16 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
                     },
                     onRemove: (i) {
                       _requestFocus = true;
+                      if (items[index].isChecklistType) {
+                        _controller.updateItem(
+                          index: index,
+                          value: '',
+                          checked: false,
+                          isChecklistType: false,
+                        );
+                        return;
+                      }
+
                       if (items.length == 1) {
                         return;
                       }

@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AgsTextfieldItem extends StatefulWidget {
-  final bool isChecklistType;
-  final bool showCheckbox;
   final bool requestFocus;
-  final AgsTextFieldItemModel? param;
+  final AgsTextFieldItemModel param;
   final int index;
 
   final void Function(bool checked, String value)? onChanged;
@@ -18,11 +16,9 @@ class AgsTextfieldItem extends StatefulWidget {
 
   const AgsTextfieldItem({
     super.key,
-    required this.isChecklistType,
-    required this.showCheckbox,
     required this.requestFocus,
     required this.index,
-    this.param,
+    required this.param,
     this.onEnter,
     this.onChanged,
     this.onRemove,
@@ -47,10 +43,8 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
   void initState() {
     super.initState();
 
-    if (widget.param != null) {
-      _controller.text = widget.param?.text ?? '';
-      _checked = widget.param?.checked ?? false;
-    }
+    _controller.text = widget.param.text;
+    _checked = widget.param.checked;
 
     _controller.addListener(_onTextChanged);
     _focusNode = FocusNode(
@@ -87,7 +81,7 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (widget.isChecklistType && widget.showCheckbox)
+        if (widget.param.isChecklistType)
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: AgsCheckbox(
@@ -113,7 +107,7 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
               contentPadding: EdgeInsets.only(bottom: 8),
             ),
             onChanged: (value) {
-              if (widget.isChecklistType) {
+              if (widget.param.isChecklistType) {
                 if (value.contains('\n')) {
                   String text = value.replaceAll('\n', '');
                   _controller.text = text;
