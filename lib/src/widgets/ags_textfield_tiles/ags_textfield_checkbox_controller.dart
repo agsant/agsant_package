@@ -21,6 +21,7 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
       _items.add(AgsTextFieldItemModel(
         text: '',
         key: DateTime.timestamp().toString(),
+        isChecklistType: isChecklistType,
       ));
     }
     _isChecklistType = isChecklistType;
@@ -38,7 +39,12 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateItem({required int index, String? value, bool? checked}) {
+  void updateItem({
+    required int index,
+    String? value,
+    bool? checked,
+    bool? isChecklistType,
+  }) {
     if (index >= items.length) return;
 
     AgsTextFieldItemModel item = _items[index];
@@ -46,7 +52,7 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
     _items[index] = item.copyWith(
       text: value,
       checked: checked,
-      isChecklistType: _isChecklistType,
+      isChecklistType: isChecklistType ?? _isChecklistType,
     );
     notifyListeners();
   }

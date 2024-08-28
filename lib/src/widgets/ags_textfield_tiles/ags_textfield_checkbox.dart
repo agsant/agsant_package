@@ -55,45 +55,56 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
         List<AgsTextFieldItemModel> items = _controller.items;
         widget.onDataUpdated?.call(items);
 
-        return ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: widget.padding ??
-                  const EdgeInsets.only(bottom: 12.0, left: 10.0),
-              child: AgsTextfieldItem(
-                key: Key(items[index].key ?? index.toString()),
-                requestFocus: _requestFocus && _focusedIndex == index,
-                param: items[index],
-                isChecklistType: widget.checklistType,
-                showCheckbox: widget.checklistType,
-                onEnter: () {
-                  _requestFocus = true;
-                  _focusedIndex++;
-                  _controller.addItem(index: index);
-                },
-                onChanged: (checked, value) {
-                  _requestFocus = true;
-                  _controller.updateItem(
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              for (int index = 0; index < items.length; index++)
+                Padding(
+                  padding: widget.padding ??
+                      const EdgeInsets.only(bottom: 12.0, left: 10.0),
+                  child: AgsTextfieldItem(
                     index: index,
-                    value: value,
-                    checked: checked,
-                  );
-                },
-                onRemove: () {
-                  _requestFocus = true;
-                  if (items.length == 1) {
-                    return;
-                  }
-                  _focusedIndex = index - 1;
-                  _controller.remove(index);
-                },
-                onGetFocus: () {
-                  _focusedIndex = index;
-                },
-              ),
-            );
-          },
+                    key: Key(items[index].key ?? index.toString()),
+                    requestFocus: _requestFocus && _focusedIndex == index,
+                    param: items[index],
+                    onEnter: () {
+                      _requestFocus = true;
+                      _focusedIndex++;
+                      _controller.addItem(index: index);
+                    },
+                    onChanged: (checked, value) {
+                      _requestFocus = true;
+                      _controller.updateItem(
+                        index: index,
+                        value: value,
+                        checked: checked,
+                      );
+                    },
+                    onRemove: (i) {
+                      _requestFocus = true;
+                      if (items[index].isChecklistType) {
+                        _controller.updateItem(
+                          index: index,
+                          value: '',
+                          checked: false,
+                          isChecklistType: false,
+                        );
+                        return;
+                      }
+
+                      if (items.length == 1) {
+                        return;
+                      }
+                      _focusedIndex = i - 1;
+                      _controller.remove(i);
+                    },
+                    onGetFocus: () {
+                      _focusedIndex = index;
+                    },
+                  ),
+                ),
+            ],
+          ),
         );
       },
     );
