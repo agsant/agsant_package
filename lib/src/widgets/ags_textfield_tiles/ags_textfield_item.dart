@@ -12,7 +12,8 @@ class AgsTextfieldItem extends StatefulWidget {
   final void Function(bool checked, String value)? onChanged;
   final VoidCallback? onEnter;
   final void Function(int)? onRemove;
-  final VoidCallback? onGetFocus;
+  final VoidCallback? onFocusGained;
+  final VoidCallback? onFocusLost;
 
   const AgsTextfieldItem({
     super.key,
@@ -22,7 +23,8 @@ class AgsTextfieldItem extends StatefulWidget {
     this.onEnter,
     this.onChanged,
     this.onRemove,
-    this.onGetFocus,
+    this.onFocusGained,
+    this.onFocusLost,
   });
 
   @override
@@ -59,8 +61,11 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
       },
     );
     _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        widget.onFocusLost?.call();
+      }
       if (_focusNode.hasFocus) {
-        widget.onGetFocus?.call();
+        widget.onFocusGained?.call();
       }
     });
 
@@ -107,12 +112,10 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
               contentPadding: EdgeInsets.only(bottom: 8),
             ),
             onChanged: (value) {
-              if (widget.param.isChecklistType) {
-                if (value.contains('\n')) {
-                  String text = value.replaceAll('\n', '');
-                  _controller.text = text;
-                  widget.onEnter?.call();
-                }
+              if (value.endsWith('\n')) {
+                String text = value.replaceAll('\n', '');
+                _controller.text = text;
+                widget.onEnter?.call();
               }
             },
           ),

@@ -30,6 +30,9 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
   void addItem({
     required int index,
   }) {
+    if (_items.length > index) {
+      _isChecklistType = _items[index].isChecklistType;
+    }
     AgsTextFieldItemModel newItem = AgsTextFieldItemModel(
       text: '',
       isChecklistType: _isChecklistType,
@@ -49,11 +52,16 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
 
     AgsTextFieldItemModel item = _items[index];
 
+    if (_items.length == 1) {
+      _isChecklistType = _items.first.isChecklistType;
+    }
+
     _items[index] = item.copyWith(
       text: value,
       checked: checked,
-      isChecklistType: isChecklistType ?? _isChecklistType,
+      isChecklistType: isChecklistType,
     );
+
     notifyListeners();
   }
 
