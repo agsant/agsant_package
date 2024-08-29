@@ -1,3 +1,4 @@
+import 'package:agsant_package/src/widgets/ags_textfield_tiles/ags_notes_controller.dart';
 import 'package:agsant_package/src/widgets/ags_textfield_tiles/ags_textfield_checkbox_controller.dart';
 import 'package:agsant_package/src/widgets/ags_textfield_tiles/ags_textfield_item.dart';
 import 'package:agsant_package/src/widgets/ags_textfield_tiles/ags_textfield_item_model.dart';
@@ -8,6 +9,7 @@ class AgsTextFieldCheckbox extends StatefulWidget {
   final List<AgsTextFieldItemModel>? items;
   final EdgeInsetsGeometry? padding;
   final bool requestFocus;
+  final AgsNotesController? controller;
 
   final void Function(List<AgsTextFieldItemModel>)? onDataUpdated;
 
@@ -18,6 +20,7 @@ class AgsTextFieldCheckbox extends StatefulWidget {
     this.onDataUpdated,
     this.padding,
     this.items,
+    this.controller,
   });
 
   @override
@@ -27,12 +30,18 @@ class AgsTextFieldCheckbox extends StatefulWidget {
 class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
   final AgsTextfieldCheckboxController _controller =
       AgsTextfieldCheckboxController();
+  AgsNotesController? _externalController;
   bool _requestFocus = true;
-  int _focusedIndex = 0;
+  int _focusedIndex = -1;
 
   @override
   void initState() {
     super.initState();
+    if (widget.controller != null) {
+      _externalController = widget.controller;
+      _externalController?.setNotesType = _setNotesType;
+    }
+
     _controller.initialLoad(
       isChecklistType: widget.checklistType,
       paramItems: widget.items,
@@ -45,6 +54,14 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void _setNotesType(bool value) {
+    _controller.updateItem(
+      index: _focusedIndex,
+      checked: !value ? null : false,
+      isChecklistType: value,
+    );
   }
 
   @override
@@ -98,8 +115,11 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
                       _focusedIndex = i - 1;
                       _controller.remove(i);
                     },
-                    onGetFocus: () {
+                    onFocusGained: () {
                       _focusedIndex = index;
+                    },
+                    onFocusLost: () {
+                      _focusedIndex = -1;
                     },
                   ),
                 ),

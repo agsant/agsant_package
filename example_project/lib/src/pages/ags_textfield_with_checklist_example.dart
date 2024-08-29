@@ -12,6 +12,7 @@ class AgsTextfieldWithChecklistExample extends StatefulWidget {
 class _AgsTextfieldWithChecklistExampleState
     extends State<AgsTextfieldWithChecklistExample> {
   bool checked = false;
+  final AgsNotesController _controller = AgsNotesController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,8 @@ class _AgsTextfieldWithChecklistExampleState
           children: [
             Expanded(
               child: AgsTextFieldCheckbox(
-                checklistType: true,
+                controller: _controller,
+                checklistType: false,
                 onDataUpdated: (items) {
                   print('=== data updated === ${items.length}');
                   for (AgsTextFieldItemModel item in items) {
@@ -40,9 +42,7 @@ class _AgsTextfieldWithChecklistExampleState
               child: AgsButton(
                 title: 'Checklist',
                 onTap: () {
-                  setState(() {
-                    checked = !checked;
-                  });
+                  _controller.setNotesType?.call(true);
                 },
               ),
             ),
