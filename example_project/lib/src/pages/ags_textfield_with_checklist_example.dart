@@ -26,7 +26,7 @@ class _AgsTextfieldWithChecklistExampleState
           children: [
             Expanded(
               child: AgsTextFieldCheckbox(
-                enableUnderline: true,
+                enableInputBorder: true,
                 controller: _controller,
                 checklistType: false,
                 onDataUpdated: (items) {},

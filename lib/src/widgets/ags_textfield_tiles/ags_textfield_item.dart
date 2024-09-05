@@ -8,7 +8,7 @@ class AgsTextfieldItem extends StatefulWidget {
   final bool requestFocus;
   final AgsTextFieldItemModel param;
   final int index;
-  final bool enableUnderline;
+  final bool enableInputBorder;
 
   final void Function(bool checked, String value)? onChanged;
   final VoidCallback? onEnter;
@@ -26,7 +26,7 @@ class AgsTextfieldItem extends StatefulWidget {
     this.onRemove,
     this.onFocusGained,
     this.onFocusLost,
-    this.enableUnderline = true,
+    this.enableInputBorder = true,
   });
 
   @override
@@ -112,7 +112,7 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
             decoration: InputDecoration(
               isDense: true,
               contentPadding: const EdgeInsets.only(bottom: 8),
-              border: widget.enableUnderline ? null : InputBorder.none,
+              border: widget.enableInputBorder ? null : InputBorder.none,
             ),
             onChanged: (value) {
               if (value.endsWith('\n')) {

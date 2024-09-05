@@ -10,7 +10,7 @@ class AgsTextFieldCheckbox extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final bool requestFocus;
   final AgsNotesController? controller;
-  final bool? enableUnderline;
+  final bool? enableInputBorder;
 
   final void Function(List<AgsTextFieldItemModel>)? onDataUpdated;
 
@@ -22,7 +22,7 @@ class AgsTextFieldCheckbox extends StatefulWidget {
     this.padding,
     this.items,
     this.controller,
-    this.enableUnderline,
+    this.enableInputBorder,
   });
 
   @override
@@ -83,7 +83,7 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
                       const EdgeInsets.only(bottom: 12.0, left: 10.0),
                   child: AgsTextfieldItem(
                     index: index,
-                    enableUnderline: widget.enableUnderline ?? false,
+                    enableInputBorder: widget.enableInputBorder ?? false,
                     key: Key(items[index].key ?? index.toString()),
                     requestFocus: _requestFocus && _focusedIndex == index,
                     param: items[index],
