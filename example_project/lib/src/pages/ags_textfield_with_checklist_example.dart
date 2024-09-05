@@ -26,15 +26,10 @@ class _AgsTextfieldWithChecklistExampleState
           children: [
             Expanded(
               child: AgsTextFieldCheckbox(
+                enableInputBorder: true,
                 controller: _controller,
                 checklistType: false,
-                onDataUpdated: (items) {
-                  print('=== data updated === ${items.length}');
-                  for (AgsTextFieldItemModel item in items) {
-                    print(
-                        '${item.text} : ${item.checked} : ${item.isChecklistType}');
-                  }
-                },
+                onDataUpdated: (items) {},
               ),
             ),
             Container(
