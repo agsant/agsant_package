@@ -127,14 +127,14 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
                       _focusedIndex = index;
                       widget.onFocusGained?.call(
                         index: index,
-                        checked: items[index].checked,
+                        checked: items[index].isChecklistType,
                       );
                     },
                     onFocusLost: () {
                       _focusedIndex = -1;
                       widget.onFocusLost?.call(
                         index: index,
-                        checked: items[index].checked,
+                        checked: items[index].isChecklistType,
                       );
                     },
                   ),
