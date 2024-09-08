@@ -29,7 +29,7 @@ class _AgsTextfieldWithChecklistExampleState
                 enableInputBorder: true,
                 controller: _controller,
                 checklistType: false,
-                onDataUpdated: (items) {},
+                onDataUpdated: (items, index) {},
               ),
             ),
             Container(
