@@ -11,6 +11,9 @@ class AgsTextFieldCheckbox extends StatefulWidget {
   final bool requestFocus;
   final AgsNotesController? controller;
   final bool? enableInputBorder;
+  final void Function({required int index, required bool checked})?
+      onFocusGained;
+  final void Function({required int index, required bool checked})? onFocusLost;
 
   final void Function(List<AgsTextFieldItemModel>)? onDataUpdated;
 
@@ -23,6 +26,8 @@ class AgsTextFieldCheckbox extends StatefulWidget {
     this.items,
     this.controller,
     this.enableInputBorder,
+    this.onFocusGained,
+    this.onFocusLost,
   });
 
   @override
@@ -120,9 +125,17 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
                     },
                     onFocusGained: () {
                       _focusedIndex = index;
+                      widget.onFocusGained?.call(
+                        index: index,
+                        checked: items[index].checked,
+                      );
                     },
                     onFocusLost: () {
                       _focusedIndex = -1;
+                      widget.onFocusLost?.call(
+                        index: index,
+                        checked: items[index].checked,
+                      );
                     },
                   ),
                 ),
