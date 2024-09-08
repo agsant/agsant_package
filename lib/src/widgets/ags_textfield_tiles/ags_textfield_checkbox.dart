@@ -15,7 +15,7 @@ class AgsTextFieldCheckbox extends StatefulWidget {
       onFocusGained;
   final void Function({required int index, required bool checked})? onFocusLost;
 
-  final void Function(List<AgsTextFieldItemModel>)? onDataUpdated;
+  final void Function(List<AgsTextFieldItemModel>, int)? onDataUpdated;
 
   const AgsTextFieldCheckbox({
     super.key,
@@ -77,7 +77,7 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
       listenable: _controller,
       builder: (context, child) {
         List<AgsTextFieldItemModel> items = _controller.items;
-        widget.onDataUpdated?.call(items);
+        widget.onDataUpdated?.call(items, _focusedIndex);
 
         return SingleChildScrollView(
           child: Column(
