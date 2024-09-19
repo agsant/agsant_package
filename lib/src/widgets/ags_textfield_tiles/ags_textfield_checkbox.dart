@@ -123,18 +123,11 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
                       _focusedIndex = i - 1;
                       _controller.remove(i);
                     },
-                    onFocusGained: () {
+                    onFocusGained: (i) {
                       _focusedIndex = index;
                       widget.onFocusGained?.call(
-                        index: index,
-                        checked: items[index].isChecklistType,
-                      );
-                    },
-                    onFocusLost: () {
-                      _focusedIndex = -1;
-                      widget.onFocusLost?.call(
-                        index: index,
-                        checked: items[index].isChecklistType,
+                        index: i,
+                        checked: items[i].isChecklistType,
                       );
                     },
                   ),
