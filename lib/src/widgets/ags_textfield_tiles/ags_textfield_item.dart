@@ -13,8 +13,7 @@ class AgsTextfieldItem extends StatefulWidget {
   final void Function(bool checked, String value)? onChanged;
   final VoidCallback? onEnter;
   final void Function(int)? onRemove;
-  final VoidCallback? onFocusGained;
-  final VoidCallback? onFocusLost;
+  final void Function(int)? onFocusGained;
 
   const AgsTextfieldItem({
     super.key,
@@ -25,7 +24,6 @@ class AgsTextfieldItem extends StatefulWidget {
     this.onChanged,
     this.onRemove,
     this.onFocusGained,
-    this.onFocusLost,
     this.enableInputBorder = true,
   });
 
@@ -63,11 +61,8 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
       },
     );
     _focusNode.addListener(() {
-      if (!_focusNode.hasFocus) {
-        widget.onFocusLost?.call();
-      }
       if (_focusNode.hasFocus) {
-        widget.onFocusGained?.call();
+        widget.onFocusGained?.call(widget.index);
       }
     });
 
