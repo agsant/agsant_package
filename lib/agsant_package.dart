@@ -25,3 +25,4 @@ export 'package:agsant_package/src/widgets/ags_textfield_tiles/ags_notes_control
 
 /// third parties
 export 'package:intl/intl.dart';
+export 'package:path_provider/path_provider.dart';
