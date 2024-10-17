@@ -15,7 +15,14 @@ class AgsTextfieldCheckboxController extends ChangeNotifier {
     List<AgsTextFieldItemModel>? paramItems,
   }) {
     if (paramItems != null) {
-      _items.addAll(paramItems);
+      for (int i = 0; i < paramItems.length; i++) {
+        _items.add(AgsTextFieldItemModel(
+          text: paramItems[i].text,
+          checked: paramItems[i].checked,
+          isChecklistType: paramItems[i].isChecklistType,
+          key: paramItems[i].key ?? i.toString(),
+        ));
+      }
       notifyListeners();
     } else {
       _items.add(AgsTextFieldItemModel(

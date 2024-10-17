@@ -28,8 +28,15 @@ class _AgsTextfieldWithChecklistExampleState
               child: AgsTextFieldCheckbox(
                 enableInputBorder: true,
                 controller: _controller,
-                checklistType: false,
+                checklistType: true,
                 onDataUpdated: (items, index) {},
+                items: [
+                  AgsTextFieldItemModel(text: 'Text1'),
+                  AgsTextFieldItemModel(text: 'Text2'),
+                  AgsTextFieldItemModel(text: 'Text3'),
+                  AgsTextFieldItemModel(text: 'Text4'),
+                  AgsTextFieldItemModel(text: 'Text5'),
+                ],
               ),
             ),
             Container(

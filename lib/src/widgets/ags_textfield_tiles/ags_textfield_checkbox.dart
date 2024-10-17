@@ -11,9 +11,14 @@ class AgsTextFieldCheckbox extends StatefulWidget {
   final bool requestFocus;
   final AgsNotesController? controller;
   final bool? enableInputBorder;
-  final void Function({required int index, required bool checked})?
-      onFocusGained;
-  final void Function({required int index, required bool checked})? onFocusLost;
+  final void Function({
+    required int index,
+    required bool checked,
+  })? onFocusGained;
+  final void Function({
+    required int index,
+    required bool checked,
+  })? onFocusLost;
 
   final void Function(List<AgsTextFieldItemModel>, int)? onDataUpdated;
 
@@ -85,7 +90,10 @@ class _AgsTextFieldCheckboxState extends State<AgsTextFieldCheckbox> {
               for (int index = 0; index < items.length; index++)
                 Padding(
                   padding: widget.padding ??
-                      const EdgeInsets.only(bottom: 12.0, left: 10.0),
+                      const EdgeInsets.only(
+                        bottom: 12.0,
+                        left: 10.0,
+                      ),
                   child: AgsTextfieldItem(
                     index: index,
                     enableInputBorder: widget.enableInputBorder ?? false,
