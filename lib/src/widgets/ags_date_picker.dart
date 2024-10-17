@@ -10,6 +10,7 @@ class AGSDatePicker extends StatefulWidget {
   final TextStyle? disabledStyle;
   final Widget? selectionOverlay;
   final Color? backgroundColor;
+  final Color? textColor;
   final DateTime? minDate;
   final DateTime? maxDate;
   final DateTime? selectedDate;
@@ -33,6 +34,7 @@ class AGSDatePicker extends StatefulWidget {
     this.height = 200,
     this.title,
     this.action,
+    this.textColor,
   });
 
   @override
@@ -141,8 +143,8 @@ class _AGSDatePickerState extends State<AGSDatePicker> {
 
   void _initStyle() {
     _selectedTextStyle = widget.selectedStyle ??
-        const TextStyle(
-          color: Colors.black,
+        TextStyle(
+          color: widget.textColor,
           fontWeight: FontWeight.w400,
           fontSize: 16,
         );
