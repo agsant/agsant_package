@@ -1,5 +1,6 @@
 import 'package:agsant_package/agsant_package.dart';
 import 'package:example_project/src/pages/ags_button_example_page.dart';
+import 'package:example_project/src/pages/ags_camera_example_page.dart';
 import 'package:example_project/src/pages/ags_checkbox_page.dart';
 import 'package:example_project/src/pages/ags_date_picker_example_page.dart';
 import 'package:example_project/src/pages/ags_image_example_page.dart';
@@ -58,6 +59,11 @@ class MainPage extends StatelessWidget {
             context: context,
             title: 'TextField Checkbox',
             targetWidget: const AgsTextfieldWithChecklistExample(),
+          ),
+          _getItem(
+            context: context,
+            title: 'Camera',
+            targetWidget: const AgsCameraExamplePage(),
           ),
         ],
       ),
