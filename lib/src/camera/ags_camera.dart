@@ -239,7 +239,8 @@ class _AgsCameraState extends State<AgsCamera> with WidgetsBindingObserver {
     try {
       await cameraController.initialize();
     } on CameraException catch (e) {
-      print('Error initializing camera: $e');
+      debugPrint('Error initializing camera: $e');
+      throw FlutterError('Error initializing camera');
     }
 
     if (mounted) {
@@ -254,7 +255,7 @@ class _AgsCameraState extends State<AgsCamera> with WidgetsBindingObserver {
       _cameras.emit(await availableCameras());
     } on CameraException catch (e) {
       debugPrint('Error in fetching the cameras: $e');
-      return;
+      throw FlutterError('Error in fetching the cameras');
     }
 
     await Permission.camera.request();
@@ -286,22 +287,25 @@ class _AgsCameraState extends State<AgsCamera> with WidgetsBindingObserver {
     XFile? rawImage = await takePicture();
     File imageFile = File(rawImage!.path);
 
-    int currentUnix = DateTime.now().millisecondsSinceEpoch;
-
-    final directory = await getApplicationDocumentsDirectory();
-
     String fileFormat = imageFile.path.split('.').last;
 
-    debugPrint(fileFormat);
-
-    await imageFile.copy('${directory.path}/$currentUnix.$fileFormat');
-
     if (widget.isSquare) {
-      String path = '${directory.path}/${currentUnix}_square.$fileFormat';
+      String base =
+          '${(await getApplicationDocumentsDirectory()).path}/capture';
+      Directory newDir = Directory(base);
+      if (!(await newDir.exists())) {
+        await newDir.create();
+      }
+
+      String path = '$base/capture_temp.$fileFormat';
+
       File? newFile = await FileHelper.cropSquare(imageFile.path, path, false);
       debugPrint(newFile?.path);
 
       if (newFile != null) {
+        if (await imageFile.exists()) {
+          await imageFile.delete();
+        }
         imageFile = newFile;
       }
     }
