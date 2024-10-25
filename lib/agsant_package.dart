@@ -1,4 +1,4 @@
-library agsant_package;
+library;
 
 export 'package:agsant_package/src/camera/ags_camera.dart';
 
@@ -25,3 +25,4 @@ export 'package:agsant_package/src/widgets/ags_textfield_tiles/ags_textfield_ite
 /// third parties
 export 'package:intl/intl.dart';
 export 'package:path_provider/path_provider.dart';
+export 'package:permission_handler/permission_handler.dart';

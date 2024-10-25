@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 class AgsImagePreviewWidget extends StatelessWidget {
   final File imageFile;
+  final String? saveButton;
+  final String? retakeButton;
 
   final VoidCallback? onRetake;
   final VoidCallback? onSave;
@@ -12,6 +14,8 @@ class AgsImagePreviewWidget extends StatelessWidget {
   const AgsImagePreviewWidget({
     super.key,
     required this.imageFile,
+    this.saveButton,
+    this.retakeButton,
     this.onSave,
     this.onRetake,
   });
@@ -35,12 +39,22 @@ class AgsImagePreviewWidget extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: TextButton(
-                      onPressed: () async {
+                    child: GestureDetector(
+                      onTap: () {
                         onRetake?.call();
                       },
-                      child: AgsText(
-                        "Retake",
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AgsText(
+                            retakeButton ?? 'Retake',
+                            color: AgsColor.white,
+                            textStyle: TextStyle(
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -50,7 +64,10 @@ class AgsImagePreviewWidget extends StatelessWidget {
                       onPressed: () async {
                         onSave?.call();
                       },
-                      child: AgsText("Save"),
+                      child: AgsText(
+                        saveButton ?? 'Save',
+                        color: AgsColor.black,
+                      ),
                     ),
                   ),
                 ],

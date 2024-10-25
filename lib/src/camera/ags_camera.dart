@@ -3,20 +3,27 @@ import 'dart:io';
 import 'package:agsant_package/agsant_package.dart';
 import 'package:agsant_package/src/camera/ags_camera_overlay.dart';
 import 'package:agsant_package/src/camera/ags_image_preview_widget.dart';
+import 'package:agsant_package/src/camera/capture_button.dart';
 import 'package:agsant_package/src/camera/file_helper.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AgsCamera extends StatefulWidget {
   final bool isSquare;
+  final Widget? loadingWidget;
+  final String? saveButton;
+  final String? retakeButton;
+
   final void Function(String path)? onSave;
 
   const AgsCamera({
     super.key,
     this.onSave,
+    this.loadingWidget,
     this.isSquare = false,
+    this.retakeButton,
+    this.saveButton,
   });
 
   @override
@@ -66,6 +73,8 @@ class _AgsCameraState extends State<AgsCamera> with WidgetsBindingObserver {
     if (imageFile != null) {
       return AgsImagePreviewWidget(
         imageFile: imageFile,
+        saveButton: widget.saveButton,
+        retakeButton: widget.retakeButton,
         onSave: () {
           String path = _image?.path ?? '';
           if (path.isNotEmpty) {
@@ -104,23 +113,31 @@ class _AgsCameraState extends State<AgsCamera> with WidgetsBindingObserver {
         backgroundColor: Colors.black,
         body: _isCameraPermissionGranted
             ? _isCameraInitialized
-                ? Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      AspectRatio(
-                        aspectRatio: 1 / controller!.value.aspectRatio,
-                        child: Stack(
-                          children: [
-                            _getCameraPreview(),
-                            _getCaptureButton(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
+                ? _getCamera()
                 : _getLoadingView()
             : _getPermissionInfo(),
       ),
+    );
+  }
+
+  Widget _getCamera() {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        AspectRatio(
+          aspectRatio: 1 / controller!.value.aspectRatio,
+          child: Stack(
+            children: [
+              _getCameraPreview(),
+              CaptureButton(
+                onTapCapture: () {
+                  _onTapCapture();
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -148,40 +165,19 @@ class _AgsCameraState extends State<AgsCamera> with WidgetsBindingObserver {
     );
   }
 
-  Widget _getCaptureButton() {
-    return Positioned.fill(
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: InkWell(
-            onTap: () async => _onTapCapture(),
-            child: const Stack(
-              alignment: Alignment.center,
-              children: [
-                Icon(
-                  Icons.circle,
-                  color: Colors.white38,
-                  size: 80,
-                ),
-                Icon(
-                  Icons.circle,
-                  color: Colors.white,
-                  size: 65,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _getLoadingView() {
+    if (widget.loadingWidget != null) {
+      return widget.loadingWidget!;
+    }
+
     return const Center(
       child: Text(
         'Loading...',
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 24,
+          decoration: TextDecoration.none,
+        ),
       ),
     );
   }
