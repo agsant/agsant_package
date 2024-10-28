@@ -27,8 +27,8 @@ class AgsImagePreviewWidget extends StatelessWidget {
         children: [
           Expanded(
             child: Center(
-              child: Image.file(
-                File(imageFile.path),
+              child: Image.memory(
+                File(imageFile.path).readAsBytesSync(),
               ),
             ),
           ),

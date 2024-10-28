@@ -4,6 +4,7 @@ import 'package:agsant_package/agsant_package.dart';
 import 'package:agsant_package/src/camera/ags_camera_overlay.dart';
 import 'package:agsant_package/src/camera/ags_image_preview_widget.dart';
 import 'package:agsant_package/src/camera/capture_button.dart';
+import 'package:agsant_package/src/camera/change_camera_button.dart';
 import 'package:agsant_package/src/camera/file_helper.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class _AgsCameraState extends State<AgsCamera> with WidgetsBindingObserver {
   bool _isCameraInitialized = false;
   bool _isCameraPermissionGranted = false;
   File? _image;
+  int _selectedCamera = 0;
 
   final BehaviorSubject<List<CameraDescription>?> _cameras =
       BehaviorSubject<List<CameraDescription>?>.seeded(null);
@@ -134,6 +136,16 @@ class _AgsCameraState extends State<AgsCamera> with WidgetsBindingObserver {
                   _onTapCapture();
                 },
               ),
+              if ((_cameras.value?.length ?? 0) > 1)
+                ChangeCameraButton(
+                  onTapChange: () {
+                    setState(() {
+                      _selectedCamera = _selectedCamera == 1 ? 0 : 1;
+                    });
+                    controller
+                        ?.setDescription(_cameras.value![_selectedCamera]);
+                  },
+                ),
             ],
           ),
         ),
@@ -261,7 +273,12 @@ class _AgsCameraState extends State<AgsCamera> with WidgetsBindingObserver {
       setState(() {
         _isCameraPermissionGranted = true;
       });
-      _onCameraSelected(_cameras.value![0]);
+
+      if ((_cameras.value?.length ?? 0) > 1) {
+        _selectedCamera = 1;
+      }
+
+      _onCameraSelected(_cameras.value![_selectedCamera]);
       // refreshAlreadyCapturedImages();
     }
   }
@@ -294,6 +311,11 @@ class _AgsCameraState extends State<AgsCamera> with WidgetsBindingObserver {
       }
 
       String path = '$base/capture_temp.$fileFormat';
+
+      File existingFile = File(path);
+      if (await existingFile.exists()) {
+        await existingFile.delete();
+      }
 
       File? newFile = await FileHelper.cropSquare(imageFile.path, path, false);
       debugPrint(newFile?.path);
