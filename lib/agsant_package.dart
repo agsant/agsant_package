@@ -24,5 +24,6 @@ export 'package:agsant_package/src/widgets/ags_textfield_tiles/ags_textfield_ite
 
 /// third parties
 export 'package:intl/intl.dart';
+export 'package:intl/date_symbol_data_local.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:permission_handler/permission_handler.dart';
