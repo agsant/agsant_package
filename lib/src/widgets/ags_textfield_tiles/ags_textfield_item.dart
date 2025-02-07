@@ -109,12 +109,12 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
               contentPadding: const EdgeInsets.only(bottom: 8),
               border: widget.enableInputBorder
                   ? UnderlineInputBorder(
-                      borderSide: BorderSide(color: AgsColor.grey40),
+                      borderSide: BorderSide(color: AgsColor.grey20),
                     )
                   : InputBorder.none,
               enabledBorder: widget.enableInputBorder
                   ? UnderlineInputBorder(
-                      borderSide: BorderSide(color: AgsColor.grey40),
+                      borderSide: BorderSide(color: AgsColor.grey20),
                     )
                   : InputBorder.none,
             ),
