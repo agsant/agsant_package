@@ -107,7 +107,16 @@ class _AgsTextfieldItemState extends State<AgsTextfieldItem> {
             decoration: InputDecoration(
               isDense: true,
               contentPadding: const EdgeInsets.only(bottom: 8),
-              border: widget.enableInputBorder ? null : InputBorder.none,
+              border: widget.enableInputBorder
+                  ? UnderlineInputBorder(
+                      borderSide: BorderSide(color: AgsColor.grey40),
+                    )
+                  : InputBorder.none,
+              enabledBorder: widget.enableInputBorder
+                  ? UnderlineInputBorder(
+                      borderSide: BorderSide(color: AgsColor.grey40),
+                    )
+                  : InputBorder.none,
             ),
             onChanged: (value) {
               if (value.endsWith('\n')) {
