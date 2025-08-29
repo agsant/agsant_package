@@ -27,3 +27,4 @@
 .dart_tool/
 .packages
 build/
+/example_project/android/app/.cxx
