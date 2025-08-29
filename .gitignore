@@ -28,3 +28,5 @@
 .packages
 build/
 /example_project/android/app/.cxx
+.flutter-plugins
+.flutter-plugins-dependencies
